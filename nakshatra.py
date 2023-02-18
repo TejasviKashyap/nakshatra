@@ -32,16 +32,25 @@ nakshatra = [
 
 results = ['Parama Mitratare', 'Janma', 'Sampattare', 'Vipattare', 'Kshematare', 'Pratyaruktare', 'Saadhakatare', 'Vadhatare', 'Mithratare']
 
+generalResults = {'Parama Mitratare':[], 'Janma':[], 'Sampattare':[], 'Vipattare':[], 'Kshematare':[], 'Pratyaruktare':[], 'Saadhakatare':[], 'Vadhatare':[], 'Mithratare':[]}
+
 userNakshatra = st.selectbox('Select your Nakshatra: ', nakshatra )
 presentNakshatra = st.selectbox('Select today\'s Nakshatra: ', nakshatra )
 
 userNakshatraNum = nakshatra.index(userNakshatra)
 presentNakshatraNum = nakshatra.index(presentNakshatra)
 
-result = (27 + (presentNakshatraNum - userNakshatraNum + 1)) % 9
+
+
+for i in range(len(nakshatra)):
+    result = (27 + (i - userNakshatraNum + 1)) % 9
+    tare = results[result]
+    generalResults[tare].append(nakshatra[i])
 
 if st.button('Calculate'):
+    result = (27 + (presentNakshatraNum - userNakshatraNum + 1)) % 9
     st.write(' Your result is : '+results[result])
-
-
+    st.subheader('Good & Bad Nakshatras:')
+    st.dataframe(generalResults)
+    
 
